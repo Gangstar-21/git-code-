@@ -1,0 +1,61 @@
+
+CI CD PIPELINE  
+
+scripted pipeline 
+
+node( 'built-in' )
+{
+  stage( ' download ' )
+   { 
+       copy url from git hub to download code 
+    }
+   stage (  ' build ')
+    {
+      sh 'mvn package'
+     }
+   stage ( ' deploy ' )
+     { 
+       deploy artifct in to qa server 
+      } 
+    stage ( ' testing ' )
+      {
+        testing is done on the artifact  with test scripts 
+            download testscripts to qa server from github
+            sh 'java -jar /path/testing.jar'
+
+       }
+     stage ( ' delivery ' )
+        { 
+           artifact will upload to prod server 
+        }
+  }
+
+
+decelartive pielines 
+
+pipeline
+ {
+    agent any
+       stages
+        { 
+           stage ( ci cd )
+            { 
+               steps
+                {
+                   script
+                    {
+                        try
+                          { 
+                               url  -----
+                           }
+                         catch (  execption e1 )
+                           { 
+                              send mail to teams
+                               exit ( )
+                             } 
+                       }
+                    }
+               }
+           }
+    }
+
